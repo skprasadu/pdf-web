@@ -36,7 +36,7 @@ public class UploadTemplateRoute implements Route {
 		String documentId = UUID.randomUUID().toString();
 		
 		try (InputStream input = part.getInputStream()) {
-            workspaceDAO.addTemplateFile(input, documentId, "document.json");
+            workspaceDAO.addTemplateFile(input, originalFilename, "document.json");
 		}
 		
 		UUID jobBatch = UUID.randomUUID();

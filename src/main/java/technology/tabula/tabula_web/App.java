@@ -1,7 +1,10 @@
 package technology.tabula.tabula_web;
 import static spark.Spark.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonSyntaxException;
@@ -34,6 +37,11 @@ public class App {
 	    get("/version", (req, rsp) -> {
 			rsp.type("application/json");
 			return String.format("{ \"api\": \"%s\" }", VERSION);
+		});
+
+	    get("/templates", (req, rsp) -> {
+			rsp.type("application/json");
+			return workspaceDAO.getTemplates();
 		});
 	}
 }

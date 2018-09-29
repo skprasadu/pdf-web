@@ -1,5 +1,6 @@
 package technology.tabula.tabula_web.workspace;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -25,5 +26,7 @@ public interface WorkspaceDAO {
 	void addFile(InputStream stream, String documentId, String filename) throws WorkspaceException;
 
 	void addTemplateFile(InputStream stream, String documentId, String filename) throws WorkspaceException;
+
+	String getTemplates() throws IOException;
 
 }

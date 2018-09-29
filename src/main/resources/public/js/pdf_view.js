@@ -843,8 +843,12 @@ Tabula.ControlPanelView = Backbone.View.extend({ // only one
 
                   // three states: autodetection still incomplete, autodetection done but no tables found, autodetection done and tables found
                   'restore_detected_tables': this.pdf_view.hasAutodetectedTables ? "autodetect-finished" : "autodetect-in-progress",
-                  'disable_detected_tables': numOfSelectionsOnPage > 0 || this.pdf_view.pdf_document.autodetected_selections.size() === 0 ? 'disabled="disabled"' : ''
-                  })));
+                  'disable_detected_tables': numOfSelectionsOnPage > 0 || this.pdf_view.pdf_document.autodetected_selections.size() === 0 ? 'disabled="disabled"' : '',
+
+                  'disable_save_template':numOfSelectionsOnPage == 0 ? 'disabled="disabled"' : '',
+                  'disable_load_template': numOfSelectionsOnPage > 0 ? 'disabled="disabled"' : ''
+
+              })));
     return this;
   },
 });
