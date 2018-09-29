@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
 
-    <title>Tabula</title>
+    <title>PDF Extraction Framework</title>
 
     <link href="/css/styles.css" rel="stylesheet">
 
@@ -37,7 +37,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">Tabula</a>
+          <a class="navbar-brand" href="/">PDF Extraction Framework</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -169,7 +169,7 @@
             <% } else if (loading) { %>
              <div class="alert alert-success" id="loading"><span id="spinner"></span><span style="position: relative; left: 16px; font-size: 24px;">Loading...</span></div>
             <% } else if (error_message) { %>
-               <p><strong>Tabula</strong> couldn't finish processing your request. We'd appreciate if you could <a href="https://github.com/jazzido/tabula/issues/new">report this error in our issue tracker</a>. If possible, please include a link to the document that caused the error and the text below:</p>
+               <p><strong>PDF Extraction Framework</strong> couldn't finish processing your request. We'd appreciate if you could <a href="https://github.com/jazzido/tabula/issues/new">report this error in our issue tracker</a>. If possible, please include a link to the document that caused the error and the text below:</p>
                  <pre class="error"><%= error_message %></pre>
             <% } else { %>
               <span class="no-data">No data.</span>
@@ -228,12 +228,12 @@
         </div>
       </script>
 
-      <script type="text/template" id="new-version-template">
+      <!-- <script type="text/template" id="new-version-template">
         <div class="alert alert-warning alert-dismissable" id="update-alert">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong>New version!</strong> <a href="<%= new_release.html_url %>">Tabula <span id="new-version"><%= new_release.name %></span></a> is available (you have <span id="installed-version"><%= api_version %></span>)
         </div>
-      </script>
+      </script>-->
 
       <script type="text/template" id="notification-template">
         <div class="alert alert-warning alert-dismissable" id="custom-alert">
