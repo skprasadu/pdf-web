@@ -1,6 +1,8 @@
 package technology.tabula.tabula_web.routes;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.nio.file.FileSystems;
@@ -10,16 +12,21 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import net.sourceforge.tess4j.TesseractException;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 import technology.tabula.Cell;
+import technology.tabula.ObjectExtractor;
 import technology.tabula.RectangularTextContainer;
 import technology.tabula.TextChunk;
 import technology.tabula.json.TextChunkSerializer;
@@ -67,7 +74,7 @@ public class ExtractDataRoute implements Route {
             spec.spec_index = i++;
         }
 
-        List<TableWithSpecIndex> tables = Extractor.extractTables(this.workspaceDAO.getDocumentPath(request.params(":file_id")), specs);
+        //List<TableWithSpecIndex> tables = Extractor.extractTables(this.workspaceDAO.getDocumentPath(request.params(":file_id")), specs);
 
         // which format?
         String requestedFormat = request.queryParams(":format");
@@ -78,69 +85,89 @@ public class ExtractDataRoute implements Route {
         if (request.params("new_filename") != null && request.params("new_filename").trim().length() > 0) {
             filename = "tabula-" + FileSystems.getDefault().getPath(request.params("new_filename")).getFileName().toString();
         }
-
-        StringBuilder sb;
-        switch (requestedFormat) {
-
-            case "csv":
-                sb = new StringBuilder();
-                for (TableWithSpecIndex t : tables) {
-                    new CSVWriter().write(sb, t);
-                }
-
-                response.type("text/csv");
-                response.header("Content-Disposition", "attachment; filename=\"tabula" + filename + ".csv\"");
-                return sb.toString();
-
-            case "tsv":
-                sb = new StringBuilder();
-                for (TableWithSpecIndex t : tables) {
-                    new TSVWriter().write(sb, t);
-                }
-
-                response.type("text/csv");
-                response.header("Content-Disposition", "attachment; filename=\"tabula" + filename + ".tsv\"");
-                return sb.toString();
-
-            case "zip":
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ZipOutputStream zos = new ZipOutputStream(baos);
-                int idx = 0;
-
-                for (TableWithSpecIndex t : tables) {
-                    ZipEntry entry = new ZipEntry(filename + "-" + (idx++) + ".csv");
-                    zos.putNextEntry(entry);
-
-                    sb = new StringBuilder();
-                    new CSVWriter().write(sb, t);
-                    zos.write(sb.toString().getBytes("UTF-8"));
-                    zos.closeEntry();
-                }
-                zos.finish();
-
-                response.header("Content-Disposition", "attachment; filename=\"tabula" + filename + ".zip\"");
-                return baos.toByteArray();
-
-            case "json":
-                Gson gson = new GsonBuilder()
-                        .addSerializationExclusionStrategy(new TableSerializerExclusionStrategy())
-                        .registerTypeAdapter(TableWithSpecIndex.class, new TableWithSpecIndexSerializer())
-                        .registerTypeAdapter(RectangularTextContainer.class, new TextChunkSerializer())
-                        .registerTypeAdapter(Cell.class, new TextChunkSerializer())
-                        .registerTypeAdapter(TextChunk.class, new TextChunkSerializer())
-                        .create();
-
-                response.type("application/json");
-                return gson.toJson(tables);
-
-            case "bbox":
-                response.type("application/json");
-                response.header("Content-Disposition", "attachment; filename=\"" + filename + "json\"");
-                return new GsonBuilder().create().toJson(specs);
+        
+        //String templateModelJson = request.params("template_model_json");
+        String templateModelJson = request.queryParams("template_model_json");
+        String fileName = this.workspaceDAO.getDocumentPath(request.params(":file_id"));
+        System.out.println("templateModelJson=" + templateModelJson);
+        System.out.println("fileName=" + fileName);
+        
+        File file = new File(fileName);
+        try(PDDocument doc = PDDocument.load(file)){
+	
+	        StringBuilder sb;
+	        switch (requestedFormat) {
+	
+	            case "csv":
+	                sb = new StringBuilder();
+	                /*for (TableWithSpecIndex t : tables) {
+	                    new CSVWriter().write(sb, t);
+	                }
+	
+	                response.type("text/csv");
+	                response.header("Content-Disposition", "attachment; filename=\"tabula" + filename + ".csv\"");*/
+	                return sb.toString();
+	
+	            case "tsv":
+	                sb = new StringBuilder();
+	                /*for (TableWithSpecIndex t : tables) {
+	                    new TSVWriter().write(sb, t);
+	                }
+	
+	                response.type("text/csv");
+	                response.header("Content-Disposition", "attachment; filename=\"tabula" + filename + ".tsv\"");*/
+	                return sb.toString();
+	
+	            case "zip":
+	                /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	                ZipOutputStream zos = new ZipOutputStream(baos);
+	                int idx = 0;
+	
+	                for (TableWithSpecIndex t : tables) {
+	                    ZipEntry entry = new ZipEntry(filename + "-" + (idx++) + ".csv");
+	                    zos.putNextEntry(entry);
+	
+	                    sb = new StringBuilder();
+	                    new CSVWriter().write(sb, t);
+	                    zos.write(sb.toString().getBytes("UTF-8"));
+	                    zos.closeEntry();
+	                }
+	                zos.finish();
+	
+	                response.header("Content-Disposition", "attachment; filename=\"tabula" + filename + ".zip\"");
+	                return baos.toByteArray();*/
+	            	return "";
+	
+	            case "json":
+	                /*Gson gson = new GsonBuilder()
+	                        .addSerializationExclusionStrategy(new TableSerializerExclusionStrategy())
+	                        .registerTypeAdapter(TableWithSpecIndex.class, new TableWithSpecIndexSerializer())
+	                        .registerTypeAdapter(RectangularTextContainer.class, new TextChunkSerializer())
+	                        .registerTypeAdapter(Cell.class, new TextChunkSerializer())
+	                        .registerTypeAdapter(TextChunk.class, new TextChunkSerializer())
+	                        .create();*/
+	
+	                response.type("application/json");
+	                return getJsonData(doc, templateModelJson);
+	
+	            case "bbox":
+	                response.type("application/json");
+	                response.header("Content-Disposition", "attachment; filename=\"" + filename + "json\"");
+	                return new GsonBuilder().create().toJson(specs);
+	        }
+        
         }
 
         return "";
 
     }
+
+	private String getJsonData(PDDocument doc, String templateModelJson) throws TesseractException {
+        ObjectExtractor o = new ObjectExtractor(doc);
+        String out = o.extractJson(templateModelJson);
+        System.out.println("out=" + out);
+
+		return out;
+	}
 
 }

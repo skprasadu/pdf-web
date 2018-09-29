@@ -8,11 +8,11 @@ Tabula.SavedTemplate = Backbone.Model.extend({
   time: 0,
   urlRoot: "/templates",
   initialize: function(){
-    this.set('name', this.get('name') || null);
+    /*this.set('name', this.get('name') || null);
     this.set('page_count', this.get('page_count') || null)
     this.set('selection_count', this.get('selection_count') || null)
     this.set('id', this.get('id') || null)
-    this.set('time', this.get('time') || null)
+    this.set('time', this.get('time') || null)*/
   }
 });
 
