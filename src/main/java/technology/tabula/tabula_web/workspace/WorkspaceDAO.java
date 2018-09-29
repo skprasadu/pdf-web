@@ -29,4 +29,6 @@ public interface WorkspaceDAO {
 
 	String getTemplates() throws IOException;
 
+	String getTemplate(String substring) throws IOException;
+
 }

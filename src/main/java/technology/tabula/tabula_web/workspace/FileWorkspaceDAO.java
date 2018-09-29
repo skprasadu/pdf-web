@@ -250,4 +250,12 @@ public class FileWorkspaceDAO implements WorkspaceDAO {
 		
 		return arr.toJSONString();
 	}
+
+	@Override
+	public String getTemplate(String substring) throws IOException {
+		// TODO Auto-generated method stub
+		Path p = Paths.get(this.getDataDir(), "templates", substring);
+		
+		return IOUtils.toString(Files.newInputStream(p));
+	}
 }

@@ -43,6 +43,13 @@ public class App {
 			rsp.type("application/json");
 			return workspaceDAO.getTemplates();
 		});
+	    
+	    get("/templates/:template_id", (req, rsp) -> {
+	    	String templateId = req.params(":template_id");
+	    	System.out.println("templateId=" + templateId.substring(1, templateId.length() -1));
+			return workspaceDAO.getTemplate(templateId.substring(1, templateId.length() -1));
+		});
+
 	}
 }
 

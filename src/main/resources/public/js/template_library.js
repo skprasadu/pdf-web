@@ -6,7 +6,7 @@ Tabula.SavedTemplate = Backbone.Model.extend({
   selection_count: null,
   id: null,
   time: 0,
-  urlRoot: "templates",
+  urlRoot: "/templates",
   initialize: function(){
     this.set('name', this.get('name') || null);
     this.set('page_count', this.get('page_count') || null)
@@ -18,7 +18,7 @@ Tabula.SavedTemplate = Backbone.Model.extend({
 
 Tabula.TemplatesCollection = Backbone.Collection.extend({
     model: Tabula.SavedTemplate,
-    url: "templates",
+    url: "/templates",
     comparator: function(i){ return -i.get('time')}
 });
 

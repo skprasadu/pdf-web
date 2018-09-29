@@ -7987,6 +7987,24 @@ form {
   vertical-align: middle;
 }
 
+#control-panel #template-dropdown-container ul {
+  padding-left: 20px;
+}
+#control-panel #template-dropdown-container button {
+  padding-left: 0px;
+}
+#control-panel #template-dropdown-container ul:first-of-type {
+  margin-bottom: 0px;
+}
+#control-panel #template-dropdown-container li a {
+  cursor: pointer;
+  color: #333;
+}
+#control-panel #template-dropdown-templates-list-container li a {
+  cursor: pointer;
+  color: #333;
+}
+
 #main-pane {
   background: #777777;
   padding: 4.25em 2em 2em 2em;
