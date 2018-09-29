@@ -42,10 +42,10 @@ public class GenerateDocumentData extends Job {
 	    		Long.toString(LocalDateTime.now().atZone(ZoneId.systemDefault()).toEpochSecond()), 
 	    		pages.size(), new File(this.filePath).length(), thumbnailSizes);
 	    
-	    if (!pages.stream().anyMatch(dp -> dp.hasText)) {
+	    /*if (!pages.stream().anyMatch(dp -> dp.hasText)) {
 	    	at(0, 100, "No text data found");
 	    	throw new Exception("No text data found");
-	    }
+	    }*/
 	    
 	    this.workspaceDAO.addDocument(we, pages);
 	    	    
