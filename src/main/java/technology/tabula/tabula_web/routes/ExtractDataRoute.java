@@ -3,6 +3,7 @@ package technology.tabula.tabula_web.routes;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.nio.file.FileSystems;
@@ -77,7 +78,9 @@ public class ExtractDataRoute implements Route {
         //List<TableWithSpecIndex> tables = Extractor.extractTables(this.workspaceDAO.getDocumentPath(request.params(":file_id")), specs);
 
         // which format?
-        String requestedFormat = request.queryParams(":format");
+        //String requestedFormat = request.queryParams(":format");
+        String requestedFormat = request.queryParams("format");
+        System.out.println("requestedFormat=" + requestedFormat);
         if (requestedFormat == null) requestedFormat = "json";
 
         // custom filename?
@@ -99,14 +102,14 @@ public class ExtractDataRoute implements Route {
 	        switch (requestedFormat) {
 	
 	            case "csv":
-	                sb = new StringBuilder();
 	                /*for (TableWithSpecIndex t : tables) {
 	                    new CSVWriter().write(sb, t);
-	                }
+	                }*/
 	
+	            	System.out.println("CSV");
 	                response.type("text/csv");
-	                response.header("Content-Disposition", "attachment; filename=\"tabula" + filename + ".csv\"");*/
-	                return sb.toString();
+	                response.header("Content-Disposition", "attachment; filename=\"tabula" + filename + ".csv\"");
+	                return getCsvData(doc, templateModelJson);
 	
 	            case "tsv":
 	                sb = new StringBuilder();
@@ -165,7 +168,13 @@ public class ExtractDataRoute implements Route {
 	private String getJsonData(PDDocument doc, String templateModelJson) throws TesseractException {
         ObjectExtractor o = new ObjectExtractor(doc);
         String out = o.extractJson(templateModelJson);
-        System.out.println("out=" + out);
+
+		return out;
+	}
+
+	private String getCsvData(PDDocument doc, String templateModelJson) throws TesseractException, IOException {
+        ObjectExtractor o = new ObjectExtractor(doc);
+        String out = o.extractCsv(templateModelJson);
 
 		return out;
 	}

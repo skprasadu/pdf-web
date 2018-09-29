@@ -79,6 +79,8 @@
           <div id="hidden-fields">
             <input type='hidden' class='data-query' name='new_filename' value='<%=original_filename%>' >
             <input type='hidden' class='data-query' name='coords' value='<%=list_of_coords%>' >
+            <input type='hidden' class='data-query' name='template_model_json' value='<%=window.localStorage.getItem("layout")%>' >
+
           </div>
           <!-- <input class="filename" name="new_filename" value="<%= new_filename || original_filename %>"></input> -->
           <span class="filename"><%= original_filename %></span>
@@ -137,21 +139,6 @@
             <button type="button" class="btn btn-default" id="revise-selections"><span class="glyphicon glyphicon-arrow-left"></span> Revise selection(s)</button>
           </p>
 
-          <h5>Choose Alternate Extraction Method</h5>
-
-          <p>The current preview uses the <strong>Stream</strong> extraction method. If the data is not mapped to the correct cells, try the <strong>Lattice</strong> method instead.</p>
-
-          <div class="btn-group" data-toggle="buttons-radio" id="extraction-method-btns" <%=disableExtractionMethodButtons%> >
-            <button type="button" id="original-method-btn" class="btn btn-default extraction-method-btn" data-method="original" ><span class="glyphicon glyphicon-th stream"></span> Stream</button>
-            <button type="button" id="spreadsheet-method-btn" class="btn btn-default extraction-method-btn" data-method="spreadsheet"><span class="glyphicon glyphicon-th lattice"></span> Lattice</button>
-          </div>
-
-          <p>
-            Stream looks for <em>whitespace</em> between columns, while Lattice looks for <em>boundary lines</em> between columns.
-          </p>
-
-         <h5>Still look wrong?</h5>
-          <p><a href="http://www.github.com/tabulapdf/tabula/issues/new">Contact the developers</a> and tell us what you tried to do that didn’t work.</p>
       </script>
 
       <!-- TODO: abstract out commonalities of select/export page templates -->

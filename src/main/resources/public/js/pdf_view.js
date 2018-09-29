@@ -305,11 +305,11 @@ Tabula.Query = Backbone.Model.extend({
             // if(!coord_set) return; // DIRTY HACK, see https://github.com/tabulapdf/tabula/issues/497
             //                        // if one set of coords returns 2+ tables, 
             //                        // then this zip won't work.
-            if (stashed_selections.get(coord_set.selection_id)){
-              stashed_selections.get(coord_set.selection_id).
-                set('extraction_method', resp_item["extraction_method"]);
-            }
-            coord_set["extraction_method"] = resp_item["extraction_method"];
+            //if (stashed_selections.get(coord_set.selection_id)){
+            //  stashed_selections.get(coord_set.selection_id).
+            //    set('extraction_method', resp_item["extraction_method"]);
+            //}
+            //coord_set["extraction_method"] = resp_item["extraction_method"];
           },this));
 
           this.trigger("tabula:query-success");
