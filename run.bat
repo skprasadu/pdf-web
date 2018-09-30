@@ -1,1 +1,1 @@
-mvn clean compile assembly:single & java -Dtabula.data_dir=data -jar target\pdf-web-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+mvn clean compile assembly:single

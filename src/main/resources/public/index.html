@@ -269,6 +269,7 @@
 
                 <button type="submit" class="btn btn-default">Import</button>
               </form>
+			  <button type="button" class="btn btn-info" onClick="refreshPage()">Refresh</button>
 
             </div>
             <div id="progress-container">
@@ -304,6 +305,12 @@
         <nestedscript type="text/javascript" src="/js/vendor/jquery.tablesorter.min.js"></nestedscript>
         <nestedscript type="text/javascript" src="/js/vendor/spin.min.js"></nestedscript>
       </script>
+
+<script>
+function refreshPage(){
+    window.location.reload();
+} 
+</script>
 
       <script type="text/template" id="uploaded-file-template">
         <td><a href='/pdf/<%= id %>'><%= original_filename %></a></td>
