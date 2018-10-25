@@ -165,14 +165,14 @@ public class ExtractDataRoute implements Route {
 
     }
 
-	private String getJsonData(PDDocument doc, String templateModelJson) throws TesseractException {
+	private String getJsonData(PDDocument doc, String templateModelJson) throws Exception {
         ObjectExtractor o = new ObjectExtractor(doc);
         String out = o.extractJson(templateModelJson);
 
 		return out;
 	}
 
-	private String getCsvData(PDDocument doc, String templateModelJson) throws TesseractException, IOException {
+	private String getCsvData(PDDocument doc, String templateModelJson) throws Exception {
         ObjectExtractor o = new ObjectExtractor(doc);
         String out = o.extractCsv(templateModelJson);
 

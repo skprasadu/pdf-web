@@ -1,1 +1,1 @@
-RUBYOPT="-KU -E utf-8:utf-8" TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata LC_ALL=C java -Dtabula.data_dir=data -jar target/pdf-web-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+RUBYOPT="-KU -E utf-8:utf-8" TESSDATA_PREFIX=/usr/share/tesseract-ocr/4.00/tessdata LC_ALL=C java -Dtabula.data_dir=data -cp target/pdf-web-0.0.1-SNAPSHOT-jar-with-dependencies.jar:pdf-lapdf-extract-1.0.4.SNAPSHOT.jar:pdf-agreement-sentences-extact-1.0.4-SNAPSHOT.jar:stanford-corenlp-3.9.1.jar:stanford-corenlp-3.9.1-models.jar technology.tabula.tabula_web.App
