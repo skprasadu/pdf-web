@@ -1,1 +1,1 @@
-mvn clean compile assembly:single
+java -Dtabula.data_dir=data -cp target\pdf-web-0.0.1-SNAPSHOT-jar-with-dependencies.jar;pdf-agreement-sentences-extact-1.0.4-SNAPSHOT.jar;stanford-corenlp-3.9.1.jar;stanford-corenlp-3.9.1-models.jar technology.tabula.tabula_web.App 
